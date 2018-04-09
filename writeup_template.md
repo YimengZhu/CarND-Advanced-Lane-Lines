@@ -18,10 +18,10 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./examples/undistort_output.png "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
+[image2]: ./test_images/test1.png "Road Transformed"
 [image3]: ./examples/binary_combo_example.png "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
+[image4]: ./examples/warped_straight_lines.png "Warp Example"
+[image5]: ./examples/color_fit_lines.png "Fit Visual"
 [image6]: ./examples/example_output.png "Output"
 [image7]: ./examples/calibration.png "Calibration"
 [video1]: ./project_video.mp4 "Video"
@@ -50,16 +50,16 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 ![alt text][image1]
 
-Then I apply the camera calibration and undistortion to all road images in the test_images foloder, which appears in the code cell 3 in the Jupyter Notebook. One of the results is like this:
-![alt text][image7]
-
 
 ### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
 
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text][image2]
+![alt text][image7]
+
+From the previous step I got the camera calibration matrix from with `cv2.calibrateCamera()`. Then I apply this calibration and undistortion matirx to all road images in the test_images foloder with `cv2.undistort()`, which appears in the code cell 3 in the Jupyter Notebook. One of the image looks like the upper one.
+
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
