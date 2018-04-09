@@ -63,11 +63,18 @@ From the previous step I got the camera calibration matrix from with `cv2.calibr
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at cells 4 in `pipline.ipynb`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
-
+Firstly, I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at cells 4 in `pipline.ipynb`).  Here's an example of my output for this step. 
 ![alt text][image3]
 
-The processing of the raw image consists of 4 thresholding steps: the s channel thresholding (from 175 to 255), the absolute sobel x thresholding (from 25 to 100), the magnitute thresholding (from 30 to 100) and the direction thresholding (from 0.3 to 1.3 grad). 
+But this thresholding get a bad performance on the pavement with heavy shadows or bright lightness. So I changed to a combination filter of choosing the yellow and white line. This consists of two following steps:
+
+* select yellow line. The image will be firstly converted to HSV color space, and the pixels which are between [20,60,60] and [38,174, 250] will be selected.
+
+* select white line. The image is in RGB color space and the pixels between [202,202,202] and [255,255,255] will be selected.
+
+The pixels in both filters will be added together to the final binary image. This method provide a very good performace on the pavements with strongly changing lightness. 
+
+(This is a suggestion from my udacity reviewer and thank you very much for bring me this delightful hint!) 
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
