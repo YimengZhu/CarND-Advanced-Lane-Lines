@@ -23,6 +23,7 @@ The goals / steps of this project are the following:
 [image4]: ./examples/warped_straight_lines.jpg "Warp Example"
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image6]: ./examples/example_output.png "Output"
+[image7]: ./examples/calibration.png "Calibration"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -49,6 +50,10 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 ![alt text][image1]
 
+Then I apply the camera calibration and undistortion to all road images in the test_images foloder, which appears in the code cell 3 in the Jupyter Notebook. One of the results is like this:
+![alt text][image7]
+
+
 ### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
@@ -69,26 +74,26 @@ The processing of the raw image consists of 4 thresholding steps: the s channel 
 The code for my perspective transform includes a function called `warper(binary_image, src, dst)`, which appears in the 6th code cell of the Jupyter notebook.  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
 
 ```python
-src = np.float32([
-    [585,455],
-    [700,455],
-    [200, 700],
-    [1128,700]])
-dst = np.float32([
-    [315,0],
-    [958,0],
-    [315,700],
-    [958,700]])
+src = np.float32(
+    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
+    [((img_size[0] / 6) - 10), img_size[1]],
+    [(img_size[0] * 5 / 6) + 60, img_size[1]],
+    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
+dst = np.float32(
+    [[(img_size[0] / 4), 0],
+    [(img_size[0] / 4), img_size[1]],
+    [(img_size[0] * 3 / 4), img_size[1]],
+    [(img_size[0] * 3 / 4), 0]])
 ```
 
 This resulted in the following source and destination points:
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
-| 585, 455      | 315, 0        | 
-| 200, 700      | 315, 700      |
-| 1128, 700     | 958, 700      |
-| 700, 455      | 958, 700      |
+| 585, 460      | 320, 0        | 
+| 203, 720      | 320, 720      |
+| 1127, 720     | 960, 720      |
+| 695, 460      | 960, 0        |
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
